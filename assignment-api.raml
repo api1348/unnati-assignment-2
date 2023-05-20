@@ -1,0 +1,31 @@
+#%RAML 1.0
+title: assignment-api
+baseUri: http://assignments.api.com
+protocols:
+  - HTTP
+  - HTTPS
+
+securitySchemes:
+  standard: !include /securitySchemas/standardSecurityScheme.raml
+  custom: !include /securitySchemas/customSecurityScheme.raml
+
+/assignmentsScore:
+  securedBy:
+    - standard
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              !include /examples/allAssignmentsScoresExample.raml
+  /{assignmentID}:
+    securedBy:
+      - custom
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                !include /examples/particularAssignmentScoreExample.raml
